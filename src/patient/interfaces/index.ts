@@ -1,6 +1,7 @@
 export interface AppointmentsInterface {
-  doctor: string;
-  speciality: string;
+  doctor?: string;
+  patient?: string;
+  speciality?: string;
   scheduleDate: Date;
   approvalStatus: boolean;
   message: string;
