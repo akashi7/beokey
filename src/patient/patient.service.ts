@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Appointments, User } from '@prisma/client';
+import { ERoles } from 'src/auth/enums';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { appointmentDto } from './dto';
 import { AppointmentsInterface } from './interfaces';
@@ -11,7 +12,7 @@ export class PatientService {
   async sheduleAppointments(
     user: User,
     dto: appointmentDto,
-    doctorId: number,
+    doctorId: string,
   ): Promise<void> {
     const appointment = await this.prisma.appointments.create({
       data: {
@@ -51,5 +52,17 @@ export class PatientService {
     );
 
     if (appointments) return appointments;
+  }
+
+  async seeAllDoctors(): Promise<User[]> {
+    const doctors: User[] = await this.prisma.user.findMany({
+      where: {
+        role: ERoles.DOCTOR,
+      },
+    });
+    doctors.forEach((item: User) => {
+      delete item.password;
+    });
+    return doctors;
   }
 }

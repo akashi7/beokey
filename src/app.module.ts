@@ -7,6 +7,8 @@ import { AuthModule } from './auth/auth.module';
 import { DoctorModule } from './doctor/doctor.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { PatientModule } from './patient/patient.module';
+import { ChatModule } from './chat/chat.module';
+import { RoomModule } from './room/room.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { PatientModule } from './patient/patient.module';
     DoctorModule,
     ConfigModule.forRoot({ isGlobal: true }),
     PatientModule,
+    ChatModule,
+    RoomModule,
   ],
   providers: [
     {

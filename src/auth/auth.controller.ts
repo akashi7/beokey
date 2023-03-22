@@ -1,5 +1,4 @@
-import { Body, Controller, Post, HttpCode } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import {
   ApiBody,
   ApiConflictResponse,
@@ -9,11 +8,11 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
-  ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { patientSignUpDto, doctorSignUpDto, LoginDto } from './dto/auth.dto';
 import { GenericResponse } from 'src/__shared__/dto/generic-response.dto';
+import { AuthService } from './auth.service';
+import { LoginDto, doctorSignUpDto, patientSignUpDto } from './dto/auth.dto';
 
 @Controller('auth')
 @ApiTags('auth')

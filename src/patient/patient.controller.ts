@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  ParseIntPipe,
-  Post,
-  Query,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -45,7 +37,7 @@ export class PatientController {
   async createAppointment(
     @Body() dto: appointmentDto,
     @GetUser() user: User,
-    @Query('doctorId', ParseIntPipe) doctorId: number,
+    @Query('doctorId') doctorId: string,
   ) {
     const result = await this.patient.sheduleAppointments(user, dto, doctorId);
     return new GenericResponse('created appointment', result);
@@ -57,5 +49,13 @@ export class PatientController {
   async getAppointments(@GetUser() user: User) {
     const result = await this.patient.getAppointments(user);
     return new GenericResponse('all my appointments', result);
+  }
+
+  @ApiOkResponse({ description: 'all doctors fetched' })
+  @ApiOperation({ summary: 'see all doctors' })
+  @Get('all-doctors')
+  async getAllDoctors() {
+    const result = await this.patient.seeAllDoctors();
+    return new GenericResponse('all doctors', result);
   }
 }

@@ -10,6 +10,7 @@ import { User } from '@prisma/client';
 import * as argon from 'argon2';
 import { getYear } from 'date-fns';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { v4 as uuidv4 } from 'uuid';
 import { LoginDto, doctorSignUpDto, patientSignUpDto } from './dto/auth.dto';
 import { ERoles } from './enums';
 
@@ -39,6 +40,7 @@ export class AuthService {
     const password = await argon.hash(dto.password);
     const newUser = await this.prisma.user.create({
       data: {
+        id: uuidv4(),
         email: dto.email,
         fullNames: dto.fullNames,
         username: dto.username,
@@ -73,6 +75,7 @@ export class AuthService {
     const password = await argon.hash(dto.password);
     const newUser = await this.prisma.user.create({
       data: {
+        id: uuidv4(),
         email: dto.email,
         fullNames: dto.fullNames,
         username: dto.username,
