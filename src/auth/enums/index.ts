@@ -3,3 +3,7 @@ export enum ERoles {
   PATIENT = 'PATIENT',
   DOCTOR = 'DOCTOR',
 }
+
+export enum AppHost {
+  HOST = 'http:localhost:3000',
+}
