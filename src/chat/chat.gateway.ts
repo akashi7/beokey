@@ -10,12 +10,12 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { AllowRoles } from 'src/auth/decorators';
-import { ERoles } from 'src/auth/enums';
+import { AppHost, ERoles } from 'src/auth/enums';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { ConversationService } from './conversation.service';
 
-@WebSocketGateway({ cors: { origin: ['http:localhost:3000'] } })
+@WebSocketGateway({ cors: { origin: [AppHost.HOST] } })
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   constructor(
     private readonly chatService: ConversationService,
