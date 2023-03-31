@@ -9,3 +9,84 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  email     String
+  password  String
+  fullNames String
+  phone     Int
+  role      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Patient {
+  id       Int     @id @default(autoincrement())
+  dob      String
+  spouse   String?
+  age      Int
+  province String
+  district String
+  sector   String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+}
+
+model Doctor {
+  id         Int    @id @default(autoincrement())
+  speciality String
+  userId     String
+  user       User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+}
+
+model User {
+  id               String             @id
+  role             String
+  password         String
+  username         String
+  fullNames        String
+  email            String
+  gender           String
+  phone            Int
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  Doctor           Doctor[]
+  Patient          Patient[]
+  Appointments     Appointments[]
+  doctorAvailabity doctorAvailabity[]
+  messages         messages[]
+}
+
+model Appointments {
+  id             Int      @id @default(autoincrement())
+  userId         String
+  doctorId       String
+  scheduleDate   DateTime
+  description    String
+  approvalStatus Boolean  @default(false)
+  message        String?
+  user           User     @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+}
+
+model doctorAvailabity {
+  id       Int      @id @default(autoincrement())
+  doctorId String
+  dates    String[]
+  user     User     @relation(fields: [doctorId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+}
+
+model messages {
+  id       String @id
+  message  String
+  userId   String
+  chatroom String
+  user     User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+}
+
+model chatroom {
+  id         String @id
+  firstUser  String
+  secondUser String
+}
