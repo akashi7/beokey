@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build",
+    "build": "npm i -g @nestjs/cli && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -23,7 +23,7 @@
     "prisma:reset": "npx prisma migrate reset",
     "prisma:init": "npx prisma init",
     "prisma:migrate": "npx prisma migrate dev",
-    "postinstall": "npm i -g @nestjs/cli && npx prisma generate && npm run build",
+    "postinstall": "npx prisma generate && npm run build",
     "prisma:prod": "npx prisma db push"
   },
   "dependencies": {
